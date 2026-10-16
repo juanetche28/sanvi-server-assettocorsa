@@ -39,6 +39,7 @@ table.l th{background:color-mix(in srgb,var(--ac) 12%,transparent);vertical-alig
 th select{font-size:12px;padding:3px 6px;margin-top:4px;max-width:150px;font-weight:400}
 .g1{color:#c99700;font-weight:600}.g2{color:#8a949f;font-weight:600}.g3{color:#b8692a;font-weight:600}
 .card.hl{border-top:3px solid var(--ac)}
+.mb{display:none}
 @media (max-width:600px){
 body{font-size:14px}
 main{padding:12px 8px 32px}
@@ -49,7 +50,10 @@ th{font-size:11px}
 table.l td,table.l th{white-space:normal}
 table.l .g1,table.l .g2,table.l .g3{display:block}
 .hm{display:none}
-th select{max-width:100%;width:100%}
+th select{appearance:none;-webkit-appearance:none;width:30px;height:24px;padding:0;color:transparent;font-size:16px;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%23888' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat center}
+th select.act{border-color:var(--ac)}
+th select option{color:var(--tx);background:var(--card)}
+.dk{display:none}.mb{display:inline}
 .bests{grid-template-columns:repeat(3,1fr)}
 .b{padding:6px 8px}.b b{font-size:15px}
 .chip{padding:6px 12px}
@@ -78,7 +82,9 @@ function parseRace(j,fname){
   (j.Laps||[]).forEach(l=>(lapsBy[l.CarId]=lapsBy[l.CarId]||[]).push([l.LapTime,...(l.Sectors||[]),l.Cuts||0]));
   return{id:date+' '+time,date,time,track:j.TrackName,config:j.TrackConfig,type:j.Type,laps:j.RaceLaps,results,lapsBy};
 }
-const toRace=(j,f)=>j.Result?parseRace(j,f):(j.results&&j.lapsBy?j:null);
+const ALIAS={'nico':'nicolasmalcorra'};
+const canon=n=>ALIAS[String(n).trim().toLowerCase()]||String(n).trim();
+const toRace=(j,f)=>{const r=j.Result?parseRace(j,f):(j.results&&j.lapsBy?j:null);if(r)r.results.forEach(x=>{x.name=canon(x.name)});return r};
 
 async function load(){
   try{
@@ -107,12 +113,12 @@ function render(){
   const bestS=[0,1,2].map(i=>all.reduce((a,x)=>x.l[i+1]<a.l[i+1]?x:a,all[0]));
   const bestL=all.length?Math.min(...all.map(x=>x.l[0])):null;
   h+=`<div class="card"><h2>${esc(nice(r.track))} · ${esc(nice(r.config))} · ${esc(r.type)}</h2><div class="sub">${fdate(r.date,r.time)} · ${r.laps} vueltas</div></div>`;
-  h+='<div class="card"><h2>Resultados de Carrera</h2><div class="w"><table><tr><th>Pos</th><th>Piloto</th><th>Auto</th><th>Tiempo total</th><th>Dif.</th><th>Mejor vuelta</th></tr>';
+  h+='<div class="card"><h2>Resultados de Carrera</h2><div class="w"><table><tr><th>Pos</th><th>Piloto</th><th>Tiempo Tot</th><th>Dif.</th><th>Mejor vuelta</th><th>Auto</th></tr>';
   let p=0;
   rows.forEach(x=>{
     const f=fin(x);if(f)p++;
     const tot=f?fm(x.total):`<span class="mut">No terminó (${nl(x)}/${r.laps} vueltas)</span>`;
-    h+=`<tr><td>${f?p:'—'}</td><td>${esc(x.name)}</td><td class="mut">${esc(carName(x.model))}</td><td>${tot}</td><td>${f?(x===win?'—':'+'+sec(x.total-win.total)):''}</td><td class="${x.best&&x.best===bestL?'pb':''}">${x.best?fm(x.best):'—'}</td></tr>`;
+    h+=`<tr><td>${f?p:'—'}</td><td>${esc(x.name)}</td><td>${tot}</td><td>${f?(x===win?'—':'+'+sec(x.total-win.total)):''}</td><td class="${x.best&&x.best===bestL?'pb':''}">${x.best?fm(x.best):'—'}</td><td class="mut">${esc(carName(x.model))}</td></tr>`;
   });
   h+='</table></div></div>';
   if(all.length){
@@ -121,10 +127,10 @@ function render(){
     if(!withLaps.find(x=>x.car===drv))drv=withLaps[0]?.car;
     const ls=r.lapsBy[drv],dm=Math.min(...ls.map(l=>l[0]));
     h+='<div class="card"><h2>Vuelta por vuelta</h2><div class="chips">'+withLaps.map(x=>`<button class="chip ${x.car===drv?'on':''}" data-d="${x.car}">${esc(x.name)} · ${esc(carName(x.model))}</button>`).join('')+'</div>';
-    h+='<div class="w"><table><tr><th>Vuelta</th><th></th><th>Tiempo</th><th>S1 (s)</th><th>S2 (s)</th><th>S3 (s)</th><th>Cortes</th></tr>';
+    h+='<div class="w"><table><tr><th>Vuelta</th><th></th><th>Tiempo</th><th>S1 (s)</th><th>S2 (s)</th><th>S3 (s)</th></tr>';
     ls.forEach((l,i)=>{
       const cell=k=>`<td class="${l[k]===bestS[k-1].l[k]?'pb':''}">${sec(l[k])}</td>`;
-      h+=`<tr><td>${i+1}</td><td></td><td class="${l[0]===dm?'me':''}">${fm(l[0])}</td>${cell(1)}${cell(2)}${cell(3)}<td>${l[4]||0}</td></tr>`;
+      h+=`<tr><td>${i+1}</td><td></td><td class="${l[0]===dm?'me':''}">${fm(l[0])}</td>${cell(1)}${cell(2)}${cell(3)}</tr>`;
     });
     h+='</table></div><div class="sub" style="margin-top:8px"><span class="me">Verde</span>: mejor vuelta del piloto · <span class="pb">Violeta</span>: mejor sector de la carrera</div></div>';
   }
@@ -154,16 +160,23 @@ function summary(rs){
   const circ=r=>nice(r.track)+' · '+nice(r.config);
   const uniq=a=>[...new Set(a)];
   const keep=E.filter(({r,top})=>(!fd||r.date===fd)&&(!flt.time||r.time===flt.time)&&(!flt.circ||circ(r)===flt.circ)&&[0,1,2].every(i=>!flt['p'+i]||top[i]?.name===flt['p'+i]));
-  const sl=(k,vals,cur,fmt=v=>v)=>`<div><select data-f="${k}"><option value="">Todos</option>${vals.map(v=>`<option value="${esc(v)}" ${v===cur?'selected':''}>${esc(fmt(v))}</option>`).join('')}</select></div>`;
+  const sl=(k,vals,cur,fmt=v=>v)=>`<div><select data-f="${k}" class="${cur?'act':''}"><option value="">Todos</option>${vals.map(v=>`<option value="${esc(v)}" ${v===cur?'selected':''}>${esc(fmt(v))}</option>`).join('')}</select></div>`;
   const pil=i=>uniq(E.map(e=>e.top[i]?.name).filter(Boolean)).sort();
-  const head=`<tr><th>Fecha${sl('date',uniq(E.map(e=>e.r.date)),fd,d=>d.split('-').reverse().join('/'))}</th><th class="hm">Hora${sl('time',uniq(E.map(e=>e.r.time)).sort(),flt.time)}</th><th>Circuito${sl('circ',uniq(E.map(e=>circ(e.r))),flt.circ)}</th>`+['1er','2da','3era'].map((t,i)=>`<th>${t} posición${sl('p'+i,pil(i),flt['p'+i])}</th>`).join('')+'</tr>';
+  const head=`<tr><th>Fecha${sl('date',uniq(E.map(e=>e.r.date)),fd,d=>d.split('-').reverse().join('/'))}</th><th class="hm">Hora${sl('time',uniq(E.map(e=>e.r.time)).sort(),flt.time)}</th><th>Circuito${sl('circ',uniq(E.map(e=>circ(e.r))),flt.circ)}</th>`+[['1er posición','1ero'],['2da posición','2ndo'],['3era posición','3ero']].map(([d,m],i)=>`<th><span class="dk">${d}</span><span class="mb">${m}</span>${sl('p'+i,pil(i),flt['p'+i])}</th>`).join('')+'</tr>';
+  const B={};
+  rs.forEach(r=>r.results.forEach(x=>{const ls=r.lapsBy[x.car];if(!ls||!ls.length)return;const t=Math.min(...ls.map(l=>l[0])),k=x.name.trim().toLowerCase()+'|'+circ(r);if(!B[k]||t<B[k].t)B[k]={name:x.name.trim(),circ:circ(r),t}}));
+  const BL=Object.values(B),minC={};
+  BL.forEach(b=>{if(!(b.circ in minC)||b.t<minC[b.circ])minC[b.circ]=b.t});
+  const brows=BL.filter(b=>(!flt.bp||b.name===flt.bp)&&(!flt.bc||b.circ===flt.bc)).sort((a,b)=>a.t-b.t).map(b=>`<tr><td>${esc(b.name)}</td><td>${esc(b.circ)}</td><td class="${b.t===minC[b.circ]?'pb':''}">${fm(b.t)}</td></tr>`).join('')||'<tr><td colspan="3" class="mut">Sin vueltas registradas</td></tr>';
+  const bhead=`<tr><th>Piloto${sl('bp',uniq(BL.map(b=>b.name)).sort(),flt.bp)}</th><th>Circuito${sl('bc',uniq(BL.map(b=>b.circ)),flt.bc)}</th><th>Mejor vuelta</th></tr>`;
   const cls=['g1','g2','g3'];
   const c=(top,i)=>top[i]?`${esc(top[i].name)} <span class="${cls[i]}">(+${PTS[i]}p)</span>`:'—';
   const rows=keep.map(({r,top})=>`<tr><td>${r.date.split('-').reverse().join('/')}</td><td class="hm">${r.time} hs</td><td>${esc(circ(r))}</td><td>${c(top,0)}</td><td>${c(top,1)}</td><td>${c(top,2)}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No hay carreras con esos filtros</td></tr>';
   const top10=Object.values(tot).sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name)).slice(0,10);
   const prow=top10.map((x,i)=>`<tr${i<3?` style="background:color-mix(in srgb,${MED[i]} 16%,transparent)"`:''}><td>${i<3?trophy(MED[i]):'<span style="display:inline-block;width:24px"></span>'}${i+1}. ${esc(x.name)}</td><td><b${i<3?` style="color:${MED[i]}"`:''}>${x.pts}</b></td></tr>`).join('')||'<tr><td colspan="2" class="mut">Sin puntos todavía</td></tr>';
   return `<div class="card hl"><h2>Podio de cada carrera</h2><div class="w"><table class="l">${head}${rows}</table></div></div>`
-   +`<div class="card hl"><h2>Tabla de Posiciones Top 10</h2><div class="w"><table class="l"><tr><th>Piloto</th><th>Puntos</th></tr>${prow}</table></div></div>`;
+   +`<div class="card hl"><h2>Tabla de Posiciones Top 10</h2><div class="w"><table class="l"><tr><th>Piloto</th><th>Puntos</th></tr>${prow}</table></div></div>`
+   +`<div class="card hl"><h2>Mejores vueltas del historial</h2><div class="w"><table class="l">${bhead}${brows}</table></div></div>`;
 }
 const REPO='juanetche28/sanvi-server-assettocorsa';
 const HASH='14c701ef47345e160ca8905d4f3ebdeafebe716d056242016f41d44a472333ca';
