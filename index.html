@@ -39,6 +39,22 @@ table.l th{background:color-mix(in srgb,var(--ac) 12%,transparent);vertical-alig
 th select{font-size:12px;padding:3px 6px;margin-top:4px;max-width:150px;font-weight:400}
 .g1{color:#c99700;font-weight:600}.g2{color:#8a949f;font-weight:600}.g3{color:#b8692a;font-weight:600}
 .card.hl{border-top:3px solid var(--ac)}
+@media (max-width:600px){
+body{font-size:14px}
+main{padding:12px 8px 32px}
+h1{font-size:18px}
+.card{padding:10px;margin:10px 0}
+th,td{padding:6px 5px}
+th{font-size:11px}
+table.l td,table.l th{white-space:normal}
+table.l .g1,table.l .g2,table.l .g3{display:block}
+.hm{display:none}
+th select{max-width:100%;width:100%}
+.bests{grid-template-columns:repeat(3,1fr)}
+.b{padding:6px 8px}.b b{font-size:15px}
+.chip{padding:6px 12px}
+.up input:not([type=file]){flex:1 1 140px;min-width:0}
+}
 </style></head>
 <body><main><div id="app"></div></main>
 <script>
@@ -140,10 +156,10 @@ function summary(rs){
   const keep=E.filter(({r,top})=>(!fd||r.date===fd)&&(!flt.time||r.time===flt.time)&&(!flt.circ||circ(r)===flt.circ)&&[0,1,2].every(i=>!flt['p'+i]||top[i]?.name===flt['p'+i]));
   const sl=(k,vals,cur,fmt=v=>v)=>`<div><select data-f="${k}"><option value="">Todos</option>${vals.map(v=>`<option value="${esc(v)}" ${v===cur?'selected':''}>${esc(fmt(v))}</option>`).join('')}</select></div>`;
   const pil=i=>uniq(E.map(e=>e.top[i]?.name).filter(Boolean)).sort();
-  const head=`<tr><th>Fecha${sl('date',uniq(E.map(e=>e.r.date)),fd,d=>d.split('-').reverse().join('/'))}</th><th>Hora${sl('time',uniq(E.map(e=>e.r.time)).sort(),flt.time)}</th><th>Circuito${sl('circ',uniq(E.map(e=>circ(e.r))),flt.circ)}</th>`+['1er','2da','3era'].map((t,i)=>`<th>${t} posición${sl('p'+i,pil(i),flt['p'+i])}</th>`).join('')+'</tr>';
+  const head=`<tr><th>Fecha${sl('date',uniq(E.map(e=>e.r.date)),fd,d=>d.split('-').reverse().join('/'))}</th><th class="hm">Hora${sl('time',uniq(E.map(e=>e.r.time)).sort(),flt.time)}</th><th>Circuito${sl('circ',uniq(E.map(e=>circ(e.r))),flt.circ)}</th>`+['1er','2da','3era'].map((t,i)=>`<th>${t} posición${sl('p'+i,pil(i),flt['p'+i])}</th>`).join('')+'</tr>';
   const cls=['g1','g2','g3'];
   const c=(top,i)=>top[i]?`${esc(top[i].name)} <span class="${cls[i]}">(+${PTS[i]}p)</span>`:'—';
-  const rows=keep.map(({r,top})=>`<tr><td>${r.date.split('-').reverse().join('/')}</td><td>${r.time} hs</td><td>${esc(circ(r))}</td><td>${c(top,0)}</td><td>${c(top,1)}</td><td>${c(top,2)}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No hay carreras con esos filtros</td></tr>';
+  const rows=keep.map(({r,top})=>`<tr><td>${r.date.split('-').reverse().join('/')}</td><td class="hm">${r.time} hs</td><td>${esc(circ(r))}</td><td>${c(top,0)}</td><td>${c(top,1)}</td><td>${c(top,2)}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No hay carreras con esos filtros</td></tr>';
   const top10=Object.values(tot).sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name)).slice(0,10);
   const prow=top10.map((x,i)=>`<tr${i<3?` style="background:color-mix(in srgb,${MED[i]} 16%,transparent)"`:''}><td>${i<3?trophy(MED[i]):'<span style="display:inline-block;width:24px"></span>'}${i+1}. ${esc(x.name)}</td><td><b${i<3?` style="color:${MED[i]}"`:''}>${x.pts}</b></td></tr>`).join('')||'<tr><td colspan="2" class="mut">Sin puntos todavía</td></tr>';
   return `<div class="card hl"><h2>Podio de cada carrera</h2><div class="w"><table class="l">${head}${rows}</table></div></div>`
