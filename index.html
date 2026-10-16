@@ -39,7 +39,7 @@ table.l th{background:color-mix(in srgb,var(--ac) 12%,transparent);vertical-alig
 th select{font-size:12px;padding:3px 6px;margin-top:4px;max-width:150px;font-weight:400}
 .g1{color:#c99700;font-weight:600}.g2{color:#8a949f;font-weight:600}.g3{color:#b8692a;font-weight:600}
 .card.hl{border-top:3px solid var(--ac)}
-.mb{display:none}
+.mb,.mbr{display:none}
 @media (max-width:600px){
 body{font-size:14px}
 main{padding:12px 8px 32px}
@@ -54,6 +54,15 @@ th select{appearance:none;-webkit-appearance:none;width:30px;height:24px;padding
 th select.act{border-color:var(--ac)}
 th select option{color:var(--tx);background:var(--card)}
 .dk{display:none}.mb{display:inline}
+.mbr{display:inline}
+.cn{display:block}
+table.pod{table-layout:fixed;width:100%}
+table.pod td,table.pod th{padding:6px 3px}
+table.pod td{font-size:11.5px;overflow-wrap:anywhere}
+table.pod td:first-child{font-size:10px;overflow-wrap:normal;white-space:nowrap}
+table.pod .cf{width:18%}table.pod .cc{width:21%}table.pod .pc{width:20.3%}
+table.res{width:auto}
+table.res td,table.res th{padding:6px 4px}
 .bests{grid-template-columns:repeat(3,1fr)}
 .b{padding:6px 8px}.b b{font-size:15px}
 .chip{padding:6px 12px}
@@ -113,11 +122,11 @@ function render(){
   const bestS=[0,1,2].map(i=>all.reduce((a,x)=>x.l[i+1]<a.l[i+1]?x:a,all[0]));
   const bestL=all.length?Math.min(...all.map(x=>x.l[0])):null;
   h+=`<div class="card"><h2>${esc(nice(r.track))} · ${esc(nice(r.config))} · ${esc(r.type)}</h2><div class="sub">${fdate(r.date,r.time)} · ${r.laps} vueltas</div></div>`;
-  h+='<div class="card"><h2>Resultados de Carrera</h2><div class="w"><table><tr><th>Pos</th><th>Piloto</th><th>Tiempo Tot</th><th>Dif.</th><th>Mejor vuelta</th><th>Auto</th></tr>';
+  h+='<div class="card"><h2>Resultados de Carrera</h2><div class="w"><table class="res"><tr><th>Pos</th><th>Piloto</th><th>Tiempo Tot</th><th>Dif.</th><th>Mejor vuelta</th><th>Auto</th></tr>';
   let p=0;
   rows.forEach(x=>{
     const f=fin(x);if(f)p++;
-    const tot=f?fm(x.total):`<span class="mut">No terminó (${nl(x)}/${r.laps} vueltas)</span>`;
+    const tot=f?fm(x.total):`<span class="mut">No terminó (${nl(x)}/${r.laps}<span class="dk"> vueltas</span>)</span>`;
     h+=`<tr><td>${f?p:'—'}</td><td>${esc(x.name)}</td><td>${tot}</td><td>${f?(x===win?'—':'+'+sec(x.total-win.total)):''}</td><td class="${x.best&&x.best===bestL?'pb':''}">${x.best?fm(x.best):'—'}</td><td class="mut">${esc(carName(x.model))}</td></tr>`;
   });
   h+='</table></div></div>';
@@ -145,6 +154,14 @@ function classified(r){
   const nl=x=>(r.lapsBy[x.car]||[]).length;
   return r.results.filter(x=>x.total&&nl(x)>=r.laps).sort((a,b)=>a.total-b.total);
 }
+const SPLIT={'nicolasmalcorra':'nicolas|malcorra'};
+function nsplit(n){
+  n=n.trim();const k=n.toLowerCase();let p,sep='<br class="mbr">';
+  if(SPLIT[k])p=SPLIT[k].split('|');
+  else if(/\s/.test(n)){p=n.split(/\s+/);sep=' '+sep}
+  else p=n.split(/(?<=[a-záéíóúñ])(?=[A-ZÁÉÍÓÚÑ])/);
+  return p.length<2?esc(n):p.map(esc).join(sep);
+}
 const flt={};
 const MED=['#e0a800','#9aa4af','#c27a35'];
 const trophy=c=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="${c}" style="vertical-align:-3px;margin-right:6px"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 15.9V18h3v3H8v-3h3v-2.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3V3zm-1 4v1a2 2 0 0 0 2 2V7H6zm12 0h-2v3a2 2 0 0 0 2-2V7z"/></svg>`;
@@ -162,7 +179,7 @@ function summary(rs){
   const keep=E.filter(({r,top})=>(!fd||r.date===fd)&&(!flt.time||r.time===flt.time)&&(!flt.circ||circ(r)===flt.circ)&&[0,1,2].every(i=>!flt['p'+i]||top[i]?.name===flt['p'+i]));
   const sl=(k,vals,cur,fmt=v=>v)=>`<div><select data-f="${k}" class="${cur?'act':''}"><option value="">Todos</option>${vals.map(v=>`<option value="${esc(v)}" ${v===cur?'selected':''}>${esc(fmt(v))}</option>`).join('')}</select></div>`;
   const pil=i=>uniq(E.map(e=>e.top[i]?.name).filter(Boolean)).sort();
-  const head=`<tr><th>Fecha${sl('date',uniq(E.map(e=>e.r.date)),fd,d=>d.split('-').reverse().join('/'))}</th><th class="hm">Hora${sl('time',uniq(E.map(e=>e.r.time)).sort(),flt.time)}</th><th>Circuito${sl('circ',uniq(E.map(e=>circ(e.r))),flt.circ)}</th>`+[['1er posición','1ero'],['2da posición','2ndo'],['3era posición','3ero']].map(([d,m],i)=>`<th><span class="dk">${d}</span><span class="mb">${m}</span>${sl('p'+i,pil(i),flt['p'+i])}</th>`).join('')+'</tr>';
+  const head=`<tr><th class="cf">Fecha${sl('date',uniq(E.map(e=>e.r.date)),fd,d=>d.split('-').reverse().join('/'))}</th><th class="hm">Hora${sl('time',uniq(E.map(e=>e.r.time)).sort(),flt.time)}</th><th class="cc">Circuito${sl('circ',uniq(E.map(e=>circ(e.r))),flt.circ)}</th>`+[['1er posición','1ero'],['2da posición','2ndo'],['3era posición','3ero']].map(([d,m],i)=>`<th class="pc"><span class="dk">${d}</span><span class="mb">${m}</span>${sl('p'+i,pil(i),flt['p'+i])}</th>`).join('')+'</tr>';
   const B={};
   rs.forEach(r=>r.results.forEach(x=>{const ls=r.lapsBy[x.car];if(!ls||!ls.length)return;const t=Math.min(...ls.map(l=>l[0])),k=x.name.trim().toLowerCase()+'|'+circ(r);if(!B[k]||t<B[k].t)B[k]={name:x.name.trim(),circ:circ(r),t}}));
   const BL=Object.values(B),minC={};
@@ -170,11 +187,11 @@ function summary(rs){
   const brows=BL.filter(b=>(!flt.bp||b.name===flt.bp)&&(!flt.bc||b.circ===flt.bc)).sort((a,b)=>a.t-b.t).map(b=>`<tr><td>${esc(b.name)}</td><td>${esc(b.circ)}</td><td class="${b.t===minC[b.circ]?'pb':''}">${fm(b.t)}</td></tr>`).join('')||'<tr><td colspan="3" class="mut">Sin vueltas registradas</td></tr>';
   const bhead=`<tr><th>Piloto${sl('bp',uniq(BL.map(b=>b.name)).sort(),flt.bp)}</th><th>Circuito${sl('bc',uniq(BL.map(b=>b.circ)),flt.bc)}</th><th>Mejor vuelta</th></tr>`;
   const cls=['g1','g2','g3'];
-  const c=(top,i)=>top[i]?`${esc(top[i].name)} <span class="${cls[i]}">(+${PTS[i]}p)</span>`:'—';
-  const rows=keep.map(({r,top})=>`<tr><td>${r.date.split('-').reverse().join('/')}</td><td class="hm">${r.time} hs</td><td>${esc(circ(r))}</td><td>${c(top,0)}</td><td>${c(top,1)}</td><td>${c(top,2)}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No hay carreras con esos filtros</td></tr>';
+  const c=(top,i)=>top[i]?`${nsplit(top[i].name)} <span class="${cls[i]}">(+${PTS[i]}p)</span>`:'—';
+  const rows=keep.map(({r,top})=>`<tr><td>${r.date.split('-').reverse().join('/')}</td><td class="hm">${r.time} hs</td><td><span class="cn">${esc(nice(r.track))} ·</span> <span class="cn">${esc(nice(r.config))}</span></td><td>${c(top,0)}</td><td>${c(top,1)}</td><td>${c(top,2)}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No hay carreras con esos filtros</td></tr>';
   const top10=Object.values(tot).sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name)).slice(0,10);
   const prow=top10.map((x,i)=>`<tr${i<3?` style="background:color-mix(in srgb,${MED[i]} 16%,transparent)"`:''}><td>${i<3?trophy(MED[i]):'<span style="display:inline-block;width:24px"></span>'}${i+1}. ${esc(x.name)}</td><td><b${i<3?` style="color:${MED[i]}"`:''}>${x.pts}</b></td></tr>`).join('')||'<tr><td colspan="2" class="mut">Sin puntos todavía</td></tr>';
-  return `<div class="card hl"><h2>Podio de cada carrera</h2><div class="w"><table class="l">${head}${rows}</table></div></div>`
+  return `<div class="card hl"><h2>Podio de cada carrera</h2><div class="w"><table class="l pod">${head}${rows}</table></div></div>`
    +`<div class="card hl"><h2>Tabla de Posiciones Top 10</h2><div class="w"><table class="l"><tr><th>Piloto</th><th>Puntos</th></tr>${prow}</table></div></div>`
    +`<div class="card hl"><h2>Mejores vueltas del historial</h2><div class="w"><table class="l">${bhead}${brows}</table></div></div>`;
 }
