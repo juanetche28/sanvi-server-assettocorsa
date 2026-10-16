@@ -34,6 +34,7 @@ select{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-
 .err{color:var(--ac)}
 input:not([type=file]){background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:7px 10px;font:inherit;max-width:100%}
 .btn.big{padding:8px 16px}
+table.l th,table.l td{text-align:left}
 </style></head>
 <body><main><div id="app"></div></main>
 <script>
@@ -72,7 +73,7 @@ function render(){
   const rs=[...races].sort((a,b)=>b.id.localeCompare(a.id));
   if(!rs.find(r=>r.id===sel))sel=rs[0]?.id??null;
   const r=rs.find(x=>x.id===sel);
-  let h=panel(r);
+  let h=panel(r)+summary(rs);
   if(!r){h+=`<div class="card ${err?'err':''}">${esc(err||'Todavía no hay carreras cargadas.')}</div>`;$('#app').innerHTML=h;bindAdmin();return}
   const dates=[...new Set(rs.map(x=>x.date))];
   h+=`<div class="up" style="margin:12px 0 6px"><label class="sub" for="ds">Fecha</label><select id="ds">`+dates.map(d=>`<option value="${d}" ${d===r.date?'selected':''}>${d.split('-').reverse().join('/')}</option>`).join('')+'</select></div>';
@@ -86,7 +87,7 @@ function render(){
   const bestS=[0,1,2].map(i=>all.reduce((a,x)=>x.l[i+1]<a.l[i+1]?x:a,all[0]));
   const bestL=all.length?Math.min(...all.map(x=>x.l[0])):null;
   h+=`<div class="card"><h2>${esc(nice(r.track))} · ${esc(nice(r.config))} · ${esc(r.type)}</h2><div class="sub">${fdate(r.date,r.time)} · ${r.laps} vueltas</div></div>`;
-  h+='<div class="card"><h2>Clasificación</h2><div class="w"><table><tr><th>Pos</th><th>Piloto</th><th>Auto</th><th>Tiempo total</th><th>Dif.</th><th>Mejor vuelta</th></tr>';
+  h+='<div class="card"><h2>Resultados de Carrera</h2><div class="w"><table><tr><th>Pos</th><th>Piloto</th><th>Auto</th><th>Tiempo total</th><th>Dif.</th><th>Mejor vuelta</th></tr>';
   let p=0;
   rows.forEach(x=>{
     const f=fin(x);if(f)p++;
@@ -112,6 +113,24 @@ function render(){
   document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{drv=+b.dataset.d;render()});
   bindAdmin();
   $('#ds').onchange=e=>{const c=races.filter(x=>x.date===e.target.value).sort((a,b)=>b.time.localeCompare(a.time));if(c[0]){sel=c[0].id;render()}};
+}
+const PTS=[25,18,15];
+function classified(r){
+  const nl=x=>(r.lapsBy[x.car]||[]).length;
+  return r.results.filter(x=>x.total&&nl(x)>=r.laps).sort((a,b)=>a.total-b.total);
+}
+function summary(rs){
+  if(!rs.length)return '';
+  const tot={};let rows='';
+  rs.forEach(r=>{
+    const top=classified(r).slice(0,3);
+    top.forEach((x,i)=>{const k=x.name.trim().toLowerCase();(tot[k]=tot[k]||{name:x.name.trim(),pts:0}).pts+=PTS[i]});
+    const c=i=>top[i]?`${esc(top[i].name)} <span class="mut">(+${PTS[i]}p)</span>`:'—';
+    rows+=`<tr><td>${r.date.split('-').reverse().join('/')}</td><td>${r.time} hs</td><td>${esc(nice(r.track))} · ${esc(nice(r.config))}</td><td>${c(0)}</td><td>${c(1)}</td><td>${c(2)}</td></tr>`;
+  });
+  const top10=Object.values(tot).sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name)).slice(0,10);
+  return `<div class="card"><h2>Podio de cada carrera</h2><div class="w"><table class="l"><tr><th>Fecha</th><th>Hora</th><th>Circuito</th><th>1er posición</th><th>2da posición</th><th>3era posición</th></tr>${rows}</table></div></div>`
+   +`<div class="card"><h2>Tabla de Posiciones Top 10</h2><div class="w"><table class="l"><tr><th>Piloto</th><th>Puntos</th></tr>${top10.map((x,i)=>`<tr><td>${i+1}. ${esc(x.name)}</td><td><b>${x.pts}</b></td></tr>`).join('')||'<tr><td colspan="2" class="mut">Sin puntos todavía</td></tr>'}</table></div></div>`;
 }
 const REPO='juanetche28/sanvi-server-assettocorsa';
 const HASH='14c701ef47345e160ca8905d4f3ebdeafebe716d056242016f41d44a472333ca';
