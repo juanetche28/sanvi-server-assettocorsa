@@ -35,6 +35,10 @@ select{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-
 input:not([type=file]){background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:7px 10px;font:inherit;max-width:100%}
 .btn.big{padding:8px 16px}
 table.l th,table.l td{text-align:left}
+table.l th{background:color-mix(in srgb,var(--ac) 12%,transparent);vertical-align:top}
+th select{font-size:12px;padding:3px 6px;margin-top:4px;max-width:150px;font-weight:400}
+.g1{color:#c99700;font-weight:600}.g2{color:#8a949f;font-weight:600}.g3{color:#b8692a;font-weight:600}
+.card.hl{border-top:3px solid var(--ac)}
 </style></head>
 <body><main><div id="app"></div></main>
 <script>
@@ -119,18 +123,31 @@ function classified(r){
   const nl=x=>(r.lapsBy[x.car]||[]).length;
   return r.results.filter(x=>x.total&&nl(x)>=r.laps).sort((a,b)=>a.total-b.total);
 }
+const flt={};
+const MED=['#e0a800','#9aa4af','#c27a35'];
+const trophy=c=>`<svg width="18" height="18" viewBox="0 0 24 24" fill="${c}" style="vertical-align:-3px;margin-right:6px"><path d="M7 3h10v2h3v3a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 15.9V18h3v3H8v-3h3v-2.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V5h3V3zm-1 4v1a2 2 0 0 0 2 2V7H6zm12 0h-2v3a2 2 0 0 0 2-2V7z"/></svg>`;
 function summary(rs){
   if(!rs.length)return '';
-  const tot={};let rows='';
+  const tot={},E=[];
   rs.forEach(r=>{
     const top=classified(r).slice(0,3);
     top.forEach((x,i)=>{const k=x.name.trim().toLowerCase();(tot[k]=tot[k]||{name:x.name.trim(),pts:0}).pts+=PTS[i]});
-    const c=i=>top[i]?`${esc(top[i].name)} <span class="mut">(+${PTS[i]}p)</span>`:'—';
-    rows+=`<tr><td>${r.date.split('-').reverse().join('/')}</td><td>${r.time} hs</td><td>${esc(nice(r.track))} · ${esc(nice(r.config))}</td><td>${c(0)}</td><td>${c(1)}</td><td>${c(2)}</td></tr>`;
+    E.push({r,top});
   });
+  const fd=flt.date===undefined?rs[0].date:flt.date;
+  const circ=r=>nice(r.track)+' · '+nice(r.config);
+  const uniq=a=>[...new Set(a)];
+  const keep=E.filter(({r,top})=>(!fd||r.date===fd)&&(!flt.time||r.time===flt.time)&&(!flt.circ||circ(r)===flt.circ)&&[0,1,2].every(i=>!flt['p'+i]||top[i]?.name===flt['p'+i]));
+  const sl=(k,vals,cur,fmt=v=>v)=>`<div><select data-f="${k}"><option value="">Todos</option>${vals.map(v=>`<option value="${esc(v)}" ${v===cur?'selected':''}>${esc(fmt(v))}</option>`).join('')}</select></div>`;
+  const pil=i=>uniq(E.map(e=>e.top[i]?.name).filter(Boolean)).sort();
+  const head=`<tr><th>Fecha${sl('date',uniq(E.map(e=>e.r.date)),fd,d=>d.split('-').reverse().join('/'))}</th><th>Hora${sl('time',uniq(E.map(e=>e.r.time)).sort(),flt.time)}</th><th>Circuito${sl('circ',uniq(E.map(e=>circ(e.r))),flt.circ)}</th>`+['1er','2da','3era'].map((t,i)=>`<th>${t} posición${sl('p'+i,pil(i),flt['p'+i])}</th>`).join('')+'</tr>';
+  const cls=['g1','g2','g3'];
+  const c=(top,i)=>top[i]?`${esc(top[i].name)} <span class="${cls[i]}">(+${PTS[i]}p)</span>`:'—';
+  const rows=keep.map(({r,top})=>`<tr><td>${r.date.split('-').reverse().join('/')}</td><td>${r.time} hs</td><td>${esc(circ(r))}</td><td>${c(top,0)}</td><td>${c(top,1)}</td><td>${c(top,2)}</td></tr>`).join('')||'<tr><td colspan="6" class="mut">No hay carreras con esos filtros</td></tr>';
   const top10=Object.values(tot).sort((a,b)=>b.pts-a.pts||a.name.localeCompare(b.name)).slice(0,10);
-  return `<div class="card"><h2>Podio de cada carrera</h2><div class="w"><table class="l"><tr><th>Fecha</th><th>Hora</th><th>Circuito</th><th>1er posición</th><th>2da posición</th><th>3era posición</th></tr>${rows}</table></div></div>`
-   +`<div class="card"><h2>Tabla de Posiciones Top 10</h2><div class="w"><table class="l"><tr><th>Piloto</th><th>Puntos</th></tr>${top10.map((x,i)=>`<tr><td>${i+1}. ${esc(x.name)}</td><td><b>${x.pts}</b></td></tr>`).join('')||'<tr><td colspan="2" class="mut">Sin puntos todavía</td></tr>'}</table></div></div>`;
+  const prow=top10.map((x,i)=>`<tr${i<3?` style="background:color-mix(in srgb,${MED[i]} 16%,transparent)"`:''}><td>${i<3?trophy(MED[i]):'<span style="display:inline-block;width:24px"></span>'}${i+1}. ${esc(x.name)}</td><td><b${i<3?` style="color:${MED[i]}"`:''}>${x.pts}</b></td></tr>`).join('')||'<tr><td colspan="2" class="mut">Sin puntos todavía</td></tr>';
+  return `<div class="card hl"><h2>Podio de cada carrera</h2><div class="w"><table class="l">${head}${rows}</table></div></div>`
+   +`<div class="card hl"><h2>Tabla de Posiciones Top 10</h2><div class="w"><table class="l"><tr><th>Piloto</th><th>Puntos</th></tr>${prow}</table></div></div>`;
 }
 const REPO='juanetche28/sanvi-server-assettocorsa';
 const HASH='14c701ef47345e160ca8905d4f3ebdeafebe716d056242016f41d44a472333ca';
@@ -196,6 +213,7 @@ function bindAdmin(){
   }
   if(g('tksave'))g('tksave').onclick=()=>{const v=g('tk').value.trim();if(v){try{localStorage.setItem('ghtk',v)}catch(e){}msg=''}render()};
   if(g('tkchg'))g('tkchg').onclick=()=>{try{localStorage.removeItem('ghtk')}catch(e){}msg='';render()};
+  document.querySelectorAll('[data-f]').forEach(x=>x.onchange=()=>{flt[x.dataset.f]=x.value;render()});
   if(g('f'))g('f').onchange=upload;
   if(g('del'))g('del').onclick=()=>{if(!confirmDel){confirmDel=true;render()}else del()};
 }
