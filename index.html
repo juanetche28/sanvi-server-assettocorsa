@@ -32,11 +32,14 @@ select{background:var(--card);color:var(--tx);border:1px solid var(--bd);border-
 .btn{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
 
 .err{color:var(--ac)}
+input:not([type=file]){background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:7px 10px;font:inherit;max-width:100%}
+.btn.big{padding:8px 16px}
 </style></head>
 <body><main><div id="app"></div></main>
 <script>
 const $=s=>document.querySelector(s);
-let races=[],sel=null,drv=null,err='';
+let races=[],sel=null,drv=null,err='',admin=false,showLogin=false,msg='',confirmDel=false;
+try{admin=sessionStorage.getItem('adm')==='1'}catch(e){}
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fm=ms=>{const m=Math.floor(ms/60000),s=(ms%60000)/1000;return m+':'+s.toFixed(3).padStart(6,'0')};
 const sec=ms=>(ms/1000).toFixed(3);
@@ -59,7 +62,7 @@ const toRace=(j,f)=>j.Result?parseRace(j,f):(j.results&&j.lapsBy?j:null);
 async function load(){
   try{
     const idx=await (await fetch('data/index.json?'+Date.now())).json();
-    const out=await Promise.all(idx.map(async f=>{try{return toRace(await (await fetch('data/'+encodeURIComponent(f))).json(),f)}catch(e){return null}}));
+    const out=await Promise.all(idx.map(async f=>{try{const x=toRace(await (await fetch('data/'+encodeURIComponent(f))).json(),f);if(x)x.file=f;return x}catch(e){return null}}));
     races=out.filter(Boolean);
   }catch(e){err='No se pudo leer data/index.json'}
   render();
@@ -69,8 +72,8 @@ function render(){
   const rs=[...races].sort((a,b)=>b.id.localeCompare(a.id));
   if(!rs.find(r=>r.id===sel))sel=rs[0]?.id??null;
   const r=rs.find(x=>x.id===sel);
-  let h='<h1>🏁 Resultados Sanvi Server</h1><div class="sub">Carreras del grupo</div>';
-  if(!r){h+=`<div class="card ${err?'err':''}">${esc(err||'Todavía no hay carreras cargadas.')}</div>`;$('#app').innerHTML=h;return}
+  let h=panel(r);
+  if(!r){h+=`<div class="card ${err?'err':''}">${esc(err||'Todavía no hay carreras cargadas.')}</div>`;$('#app').innerHTML=h;bindAdmin();return}
   const dates=[...new Set(rs.map(x=>x.date))];
   h+=`<div class="up" style="margin:12px 0 6px"><label class="sub" for="ds">Fecha</label><select id="ds">`+dates.map(d=>`<option value="${d}" ${d===r.date?'selected':''}>${d.split('-').reverse().join('/')}</option>`).join('')+'</select></div>';
   h+='<div class="sub">Hora de la carrera</div><div class="chips">'+rs.filter(x=>x.date===r.date).sort((a,b)=>a.time.localeCompare(b.time)).map(x=>`<button class="chip ${x.id===sel?'on':''}" data-r="${esc(x.id)}">${x.time} hs</button>`).join('')+'</div>';
@@ -105,9 +108,77 @@ function render(){
     h+='</table></div><div class="sub" style="margin-top:8px"><span class="me">Verde</span>: mejor vuelta del piloto · <span class="pb">Violeta</span>: mejor sector de la carrera</div></div>';
   }
   $('#app').innerHTML=h;
-  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{sel=b.dataset.r;render()});
+  document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{sel=b.dataset.r;confirmDel=false;render()});
   document.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{drv=+b.dataset.d;render()});
+  bindAdmin();
   $('#ds').onchange=e=>{const c=races.filter(x=>x.date===e.target.value).sort((a,b)=>b.time.localeCompare(a.time));if(c[0]){sel=c[0].id;render()}};
+}
+const REPO='juanetche28/sanvi-server-assettocorsa';
+const HASH='14c701ef47345e160ca8905d4f3ebdeafebe716d056242016f41d44a472333ca';
+const getTk=()=>{try{return localStorage.getItem('ghtk')||''}catch(e){return ''}};
+const b64=s=>btoa(unescape(encodeURIComponent(s)));
+async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+async function gh(method,path,body){
+  const res=await fetch('https://api.github.com/repos/'+REPO+'/contents/'+path,{method,cache:'no-store',headers:{Authorization:'Bearer '+getTk(),Accept:'application/vnd.github+json'},body:body?JSON.stringify(body):undefined});
+  if(res.status===404&&method==='GET')return null;
+  if(!res.ok)throw new Error(res.status===401||res.status===403?'token inválido, vencido o sin permisos':'GitHub respondió '+res.status);
+  return res.json();
+}
+async function setIndex(fn){
+  const cur=await gh('GET','data/index.json');
+  let list=[];try{list=JSON.parse(decodeURIComponent(escape(atob(cur.content.replace(/\n/g,'')))))}catch(e){}
+  list=[...new Set(fn(list))].sort();
+  await gh('PUT','data/index.json',{message:'Actualizar lista de carreras',content:b64(JSON.stringify(list)),sha:cur?.sha});
+}
+const setMsg=t=>{msg=t;render()};
+async function upload(e){
+  const files=[...e.target.files];if(!files.length)return;
+  try{
+    for(const file of files){
+      if(!/\d{4}_\d{2}_\d{2}_\d{2}_\d{2}/.test(file.name))throw new Error(file.name+': el nombre debe incluir fecha y hora (AAAA_MM_DD_HH_MM_RACE.json)');
+      const text=await file.text(),race=toRace(JSON.parse(text),file.name);
+      if(!race||!race.results.length)throw new Error(file.name+': no parece un resultado de carrera');
+      setMsg('Subiendo '+file.name+'…');
+      const old=await gh('GET','data/'+file.name);
+      await gh('PUT','data/'+file.name,{message:'Subir '+file.name,content:b64(text),sha:old?.sha});
+      await setIndex(l=>[...l,file.name]);
+      race.file=file.name;races=races.filter(x=>x.id!==race.id).concat(race);sel=race.id;
+    }
+    msg='Listo ✓ Los demás lo van a ver en 1–2 minutos.';
+  }catch(err){msg='Error: '+err.message}
+  render();
+}
+async function del(){
+  const r=races.find(x=>x.id===sel);if(!r)return;
+  confirmDel=false;
+  try{
+    setMsg('Eliminando…');
+    const f=await gh('GET','data/'+r.file);
+    if(f)await gh('DELETE','data/'+r.file,{message:'Eliminar '+r.file,sha:f.sha});
+    await setIndex(l=>l.filter(x=>x!==r.file));
+    races=races.filter(x=>x!==r);sel=null;msg='Carrera eliminada ✓ Los demás lo ven en 1–2 minutos.';
+  }catch(err){msg='Error: '+err.message}
+  render();
+}
+function panel(r){
+  const head=`<div class="up" style="justify-content:space-between"><div><h1>🏁 Resultados Sanvi Server</h1><div class="sub">Carreras del grupo</div></div><button class="chip" id="adm">${admin?'Cerrar sesión admin':'🔒 Admin login'}</button></div>`;
+  const m=msg?`<div class="sub" style="margin-top:8px;flex-basis:100%">${esc(msg)}</div>`:'';
+  if(!admin&&!showLogin)return head;
+  if(!admin)return head+`<div class="card up"><input id="lu" placeholder="Usuario" autocomplete="username"><input id="lp" type="password" placeholder="Contraseña" autocomplete="current-password"><button class="btn" id="lgo">Ingresar</button>${m}</div>`;
+  if(!getTk())return head+`<div class="card"><h2>Conectar con GitHub</h2><div class="sub">Pegá tu token de GitHub (se guarda solo en este dispositivo).</div><div class="up" style="margin-top:8px"><input id="tk" type="password" placeholder="github_pat_..."><button class="btn" id="tksave">Guardar</button></div>${m}</div>`;
+  return head+`<div class="card"><div class="up"><input type="file" id="f" accept=".json" multiple><button class="chip" id="tkchg">Cambiar token</button></div><div class="sub" style="margin-top:6px">El archivo debe llamarse con fecha y hora, ej: 2026_10_15_20_50_RACE.json</div>${r?`<button class="chip del" id="del" style="margin-top:10px">${confirmDel?'¿Seguro? Tocá de nuevo para eliminar':'🗑 Eliminar la carrera seleccionada'}</button>`:''}${m}</div>`;
+}
+function bindAdmin(){
+  const g=id=>document.getElementById(id);
+  g('adm').onclick=()=>{if(admin){admin=false;try{sessionStorage.removeItem('adm')}catch(e){}}else showLogin=!showLogin;msg='';render()};
+  if(g('lgo')){
+    g('lgo').onclick=async()=>{if((await sha(g('lu').value.trim()+':'+g('lp').value))===HASH){admin=true;showLogin=false;msg='';try{sessionStorage.setItem('adm','1')}catch(e){}}else msg='Usuario o contraseña incorrectos';render()};
+    g('lp').onkeydown=e=>{if(e.key==='Enter')g('lgo').click()};
+  }
+  if(g('tksave'))g('tksave').onclick=()=>{const v=g('tk').value.trim();if(v){try{localStorage.setItem('ghtk',v)}catch(e){}msg=''}render()};
+  if(g('tkchg'))g('tkchg').onclick=()=>{try{localStorage.removeItem('ghtk')}catch(e){}msg='';render()};
+  if(g('f'))g('f').onchange=upload;
+  if(g('del'))g('del').onclick=()=>{if(!confirmDel){confirmDel=true;render()}else del()};
 }
 load();
 </script></body></html>
