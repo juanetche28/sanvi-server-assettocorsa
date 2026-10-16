@@ -1,0 +1,581 @@
+{
+	"TrackName": "balcarce",
+	"TrackConfig": "historico",
+	"Type": "RACE",
+	"DurationSecs": 0,
+	"RaceLaps": 5,
+	"Cars": [
+		{
+			"CarId": 0,
+			"Driver": {
+				"Name": "Nico",
+				"Team": "",
+				"Nation": "ITA",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_chevrolet",
+			"Skin": "36-Damian_Fineschi",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 1,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_chevrolet",
+			"Skin": "77-Mariano_Pernia",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 2,
+			"Driver": {
+				"Name": "Nico",
+				"Team": "",
+				"Nation": "ITA",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_citroen",
+			"Skin": "75-Milton_Bobel",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 3,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_citroen",
+			"Skin": "75-Milton_Bobel",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 4,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_fiat",
+			"Skin": "17-Juan_Pablo_Traverso",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 5,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_fiat",
+			"Skin": "34-Josito_Di_Palma",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 6,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_honda",
+			"Skin": "10-Bernardo_Llaver",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 7,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_honda",
+			"Skin": "57-Franco_Vivian",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 8,
+			"Driver": {
+				"Name": "Santy Peter",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199555772077",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_renault",
+			"Skin": "1-Leonel_Pernia",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 9,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_renault",
+			"Skin": "88-Figgo_Bessone",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 10,
+			"Driver": {
+				"Name": "Fangio",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561198836397136",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_toyota",
+			"Skin": "117-Matias_Rossi",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 11,
+			"Driver": {
+				"Name": "Fangio",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561198836397136",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_toyota",
+			"Skin": "25-Marcelo_Ciarrocchi",
+			"BallastKG": 0,
+			"Restrictor": 0
+		}
+	],
+	"Result": [
+		{
+			"DriverName": "Nico",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"BestLap": 94418,
+			"TotalTime": 483627,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"BestLap": 95174,
+			"TotalTime": 487858,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Santy Peter",
+			"DriverGuid": "76561199555772077",
+			"CarId": 8,
+			"CarModel": "tc2000_2024_renault",
+			"BestLap": 96150,
+			"TotalTime": 489812,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 11,
+			"CarModel": "tc2000_2024_toyota",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Nico",
+			"DriverGuid": "76561199062106118",
+			"CarId": 0,
+			"CarModel": "tc2000_2024_chevrolet",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 1,
+			"CarModel": "tc2000_2024_chevrolet",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 3,
+			"CarModel": "tc2000_2024_citroen",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 6,
+			"CarModel": "tc2000_2024_honda",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 7,
+			"CarModel": "tc2000_2024_honda",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 9,
+			"CarModel": "tc2000_2024_renault",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 4,
+			"CarModel": "tc2000_2024_fiat",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 5,
+			"CarModel": "tc2000_2024_fiat",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		}
+	],
+	"Laps": [
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 1847711,
+			"LapTime": 102572,
+			"Sectors": [
+				31783,
+				37287,
+				33502
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Nico",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 1848441,
+			"LapTime": 103297,
+			"Sectors": [
+				32201,
+				37319,
+				33777
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Santy Peter",
+			"DriverGuid": "76561199555772077",
+			"CarId": 8,
+			"CarModel": "tc2000_2024_renault",
+			"Timestamp": 1849517,
+			"LapTime": 104371,
+			"Sectors": [
+				32970,
+				37602,
+				33799
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Nico",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 1943234,
+			"LapTime": 94798,
+			"Sectors": [
+				24634,
+				37008,
+				33156
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 1943309,
+			"LapTime": 95600,
+			"Sectors": [
+				24712,
+				36819,
+				34069
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Santy Peter",
+			"DriverGuid": "76561199555772077",
+			"CarId": 8,
+			"CarModel": "tc2000_2024_renault",
+			"Timestamp": 1945669,
+			"LapTime": 96153,
+			"Sectors": [
+				24773,
+				37108,
+				34272
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Nico",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 2039258,
+			"LapTime": 96027,
+			"Sectors": [
+				24540,
+				37584,
+				33903
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 2041043,
+			"LapTime": 97734,
+			"Sectors": [
+				24320,
+				37944,
+				35470
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Santy Peter",
+			"DriverGuid": "76561199555772077",
+			"CarId": 8,
+			"CarModel": "tc2000_2024_renault",
+			"Timestamp": 2042485,
+			"LapTime": 96821,
+			"Sectors": [
+				24871,
+				37706,
+				34244
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Nico",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 2133671,
+			"LapTime": 94418,
+			"Sectors": [
+				24182,
+				36585,
+				33651
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 2136215,
+			"LapTime": 95174,
+			"Sectors": [
+				24335,
+				37449,
+				33390
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Santy Peter",
+			"DriverGuid": "76561199555772077",
+			"CarId": 8,
+			"CarModel": "tc2000_2024_renault",
+			"Timestamp": 2138636,
+			"LapTime": 96150,
+			"Sectors": [
+				24757,
+				37170,
+				34223
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Nico",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 2228775,
+			"LapTime": 95106,
+			"Sectors": [
+				24145,
+				37332,
+				33629
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 2233001,
+			"LapTime": 96788,
+			"Sectors": [
+				24770,
+				37598,
+				34420
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Santy Peter",
+			"DriverGuid": "76561199555772077",
+			"CarId": 8,
+			"CarModel": "tc2000_2024_renault",
+			"Timestamp": 2234964,
+			"LapTime": 96335,
+			"Sectors": [
+				24893,
+				37278,
+				34164
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		}
+	],
+	"Events": null
+}
