@@ -1,0 +1,818 @@
+{
+	"TrackName": "balcarce",
+	"TrackConfig": "historico",
+	"Type": "RACE",
+	"DurationSecs": 0,
+	"RaceLaps": 5,
+	"Cars": [
+		{
+			"CarId": 0,
+			"Driver": {
+				"Name": "PoderPerruno",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199066680243",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_chevrolet",
+			"Skin": "36-Damian_Fineschi",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 1,
+			"Driver": {
+				"Name": "PabloP.",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199031383414",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_chevrolet",
+			"Skin": "77-Mariano_Pernia",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 2,
+			"Driver": {
+				"Name": "nicolasmalcorra",
+				"Team": "",
+				"Nation": "",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_citroen",
+			"Skin": "75-Milton_Bobel",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 3,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_citroen",
+			"Skin": "75-Milton_Bobel",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 4,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_fiat",
+			"Skin": "17-Juan_Pablo_Traverso",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 5,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_fiat",
+			"Skin": "34-Josito_Di_Palma",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 6,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_honda",
+			"Skin": "10-Bernardo_Llaver",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 7,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_honda",
+			"Skin": "57-Franco_Vivian",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 8,
+			"Driver": {
+				"Name": "Player",
+				"Team": "",
+				"Nation": "ITA",
+				"Guid": "90071996842377217",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_renault",
+			"Skin": "1-Leonel_Pernia",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 9,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_renault",
+			"Skin": "88-Figgo_Bessone",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 10,
+			"Driver": {
+				"Name": "Fangio",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561198836397136",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_toyota",
+			"Skin": "117-Matias_Rossi",
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"CarId": 11,
+			"Driver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": [
+					""
+				]
+			},
+			"Model": "tc2000_2024_toyota",
+			"Skin": "25-Marcelo_Ciarrocchi",
+			"BallastKG": 0,
+			"Restrictor": 0
+		}
+	],
+	"Result": [
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"BestLap": 95583,
+			"TotalTime": 489022,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "nicolasmalcorra",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"BestLap": 95498,
+			"TotalTime": 490058,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "PoderPerruno",
+			"DriverGuid": "76561199066680243",
+			"CarId": 0,
+			"CarModel": "tc2000_2024_chevrolet",
+			"BestLap": 96283,
+			"TotalTime": 497472,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "PabloP.",
+			"DriverGuid": "76561199031383414",
+			"CarId": 1,
+			"CarModel": "tc2000_2024_chevrolet",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 3,
+			"CarModel": "tc2000_2024_citroen",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 5,
+			"CarModel": "tc2000_2024_fiat",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 6,
+			"CarModel": "tc2000_2024_honda",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 7,
+			"CarModel": "tc2000_2024_honda",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Player",
+			"DriverGuid": "90071996842377217",
+			"CarId": 8,
+			"CarModel": "tc2000_2024_renault",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 9,
+			"CarModel": "tc2000_2024_renault",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 4,
+			"CarModel": "tc2000_2024_fiat",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "",
+			"DriverGuid": "",
+			"CarId": 11,
+			"CarModel": "tc2000_2024_toyota",
+			"BestLap": 999999999,
+			"TotalTime": 0,
+			"BallastKG": 0,
+			"Restrictor": 0
+		}
+	],
+	"Laps": [
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 7457489,
+			"LapTime": 103374,
+			"Sectors": [
+				31509,
+				37768,
+				34097
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "nicolasmalcorra",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 7457611,
+			"LapTime": 103495,
+			"Sectors": [
+				32427,
+				37129,
+				33939
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "PoderPerruno",
+			"DriverGuid": "76561199066680243",
+			"CarId": 0,
+			"CarModel": "tc2000_2024_chevrolet",
+			"Timestamp": 7458353,
+			"LapTime": 104200,
+			"Sectors": [
+				32866,
+				37557,
+				33777
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 7555654,
+			"LapTime": 98162,
+			"Sectors": [
+				24596,
+				39209,
+				34357
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "PoderPerruno",
+			"DriverGuid": "76561199066680243",
+			"CarId": 0,
+			"CarModel": "tc2000_2024_chevrolet",
+			"Timestamp": 7556317,
+			"LapTime": 97961,
+			"Sectors": [
+				25165,
+				38173,
+				34623
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "nicolasmalcorra",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 7556317,
+			"LapTime": 98708,
+			"Sectors": [
+				24616,
+				39951,
+				34141
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 7651233,
+			"LapTime": 95583,
+			"Sectors": [
+				24244,
+				37525,
+				33814
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "nicolasmalcorra",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 7652541,
+			"LapTime": 96231,
+			"Sectors": [
+				24910,
+				37319,
+				34002
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "PoderPerruno",
+			"DriverGuid": "76561199066680243",
+			"CarId": 0,
+			"CarModel": "tc2000_2024_chevrolet",
+			"Timestamp": 7653716,
+			"LapTime": 97405,
+			"Sectors": [
+				24978,
+				38070,
+				34357
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 7746846,
+			"LapTime": 95615,
+			"Sectors": [
+				24497,
+				37058,
+				34060
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "nicolasmalcorra",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 7748039,
+			"LapTime": 95498,
+			"Sectors": [
+				24421,
+				37071,
+				34006
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "PoderPerruno",
+			"DriverGuid": "76561199066680243",
+			"CarId": 0,
+			"CarModel": "tc2000_2024_chevrolet",
+			"Timestamp": 7750001,
+			"LapTime": 96283,
+			"Sectors": [
+				24567,
+				37637,
+				34079
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "Fangio",
+			"DriverGuid": "76561198836397136",
+			"CarId": 10,
+			"CarModel": "tc2000_2024_toyota",
+			"Timestamp": 7843139,
+			"LapTime": 96294,
+			"Sectors": [
+				24739,
+				37229,
+				34326
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "nicolasmalcorra",
+			"DriverGuid": "76561199062106118",
+			"CarId": 2,
+			"CarModel": "tc2000_2024_citroen",
+			"Timestamp": 7844180,
+			"LapTime": 96150,
+			"Sectors": [
+				24483,
+				37854,
+				33813
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		},
+		{
+			"DriverName": "PoderPerruno",
+			"DriverGuid": "76561199066680243",
+			"CarId": 0,
+			"CarModel": "tc2000_2024_chevrolet",
+			"Timestamp": 7851598,
+			"LapTime": 101602,
+			"Sectors": [
+				27933,
+				38996,
+				34673
+			],
+			"Cuts": 0,
+			"BallastKG": 0,
+			"Tyre": "M",
+			"Restrictor": 0
+		}
+	],
+	"Events": [
+		{
+			"Type": "COLLISION_WITH_CAR",
+			"CarId": 0,
+			"Driver": {
+				"Name": "PoderPerruno",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199066680243",
+				"GuidsList": [
+					""
+				]
+			},
+			"OtherCarId": 2,
+			"OtherDriver": {
+				"Name": "nicolasmalcorra",
+				"Team": "",
+				"Nation": "",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"ImpactSpeed": 11.033587,
+			"WorldPosition": {
+				"X": -323.85843,
+				"Y": -7.8315487,
+				"Z": 623.28973
+			},
+			"RelPosition": {
+				"X": -1.0104873,
+				"Y": -0.35718456,
+				"Z": 1.5901085
+			}
+		},
+		{
+			"Type": "COLLISION_WITH_CAR",
+			"CarId": 2,
+			"Driver": {
+				"Name": "nicolasmalcorra",
+				"Team": "",
+				"Nation": "",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"OtherCarId": 0,
+			"OtherDriver": {
+				"Name": "PoderPerruno",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199066680243",
+				"GuidsList": [
+					""
+				]
+			},
+			"ImpactSpeed": 13.396471,
+			"WorldPosition": {
+				"X": -324.11917,
+				"Y": -7.4701405,
+				"Z": 623.8348
+			},
+			"RelPosition": {
+				"X": 1.0194854,
+				"Y": -0.001508256,
+				"Z": 1.21755
+			}
+		},
+		{
+			"Type": "COLLISION_WITH_CAR",
+			"CarId": 10,
+			"Driver": {
+				"Name": "Fangio",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561198836397136",
+				"GuidsList": [
+					""
+				]
+			},
+			"OtherCarId": 2,
+			"OtherDriver": {
+				"Name": "nicolasmalcorra",
+				"Team": "",
+				"Nation": "",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"ImpactSpeed": 4.8876514,
+			"WorldPosition": {
+				"X": -71.79279,
+				"Y": -16.898209,
+				"Z": -232.55504
+			},
+			"RelPosition": {
+				"X": 0.6925304,
+				"Y": -0.34298128,
+				"Z": -2.4649143
+			}
+		},
+		{
+			"Type": "COLLISION_WITH_CAR",
+			"CarId": 2,
+			"Driver": {
+				"Name": "nicolasmalcorra",
+				"Team": "",
+				"Nation": "",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"OtherCarId": 10,
+			"OtherDriver": {
+				"Name": "Fangio",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561198836397136",
+				"GuidsList": [
+					""
+				]
+			},
+			"ImpactSpeed": 5.334353,
+			"WorldPosition": {
+				"X": -70.88751,
+				"Y": -16.860662,
+				"Z": -235.77222
+			},
+			"RelPosition": {
+				"X": -0.1522674,
+				"Y": -0.36620063,
+				"Z": 2.0965312
+			}
+		},
+		{
+			"Type": "COLLISION_WITH_CAR",
+			"CarId": 2,
+			"Driver": {
+				"Name": "nicolasmalcorra",
+				"Team": "",
+				"Nation": "",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"OtherCarId": 0,
+			"OtherDriver": {
+				"Name": "PoderPerruno",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199066680243",
+				"GuidsList": [
+					""
+				]
+			},
+			"ImpactSpeed": 19.26636,
+			"WorldPosition": {
+				"X": -108.24102,
+				"Y": -15.102212,
+				"Z": 3.9072263
+			},
+			"RelPosition": {
+				"X": -1.0206236,
+				"Y": -0.34134007,
+				"Z": 1.5879253
+			}
+		},
+		{
+			"Type": "COLLISION_WITH_CAR",
+			"CarId": 0,
+			"Driver": {
+				"Name": "PoderPerruno",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199066680243",
+				"GuidsList": [
+					""
+				]
+			},
+			"OtherCarId": 2,
+			"OtherDriver": {
+				"Name": "nicolasmalcorra",
+				"Team": "",
+				"Nation": "",
+				"Guid": "76561199062106118",
+				"GuidsList": [
+					""
+				]
+			},
+			"ImpactSpeed": 7.1395316,
+			"WorldPosition": {
+				"X": -108.129875,
+				"Y": -15.163364,
+				"Z": 3.0491488
+			},
+			"RelPosition": {
+				"X": 1.0182242,
+				"Y": -0.29358035,
+				"Z": 0.90154445
+			}
+		},
+		{
+			"Type": "COLLISION_WITH_ENV",
+			"CarId": 0,
+			"Driver": {
+				"Name": "PoderPerruno",
+				"Team": "",
+				"Nation": "ARG",
+				"Guid": "76561199066680243",
+				"GuidsList": [
+					""
+				]
+			},
+			"OtherCarId": -1,
+			"OtherDriver": {
+				"Name": "",
+				"Team": "",
+				"Nation": "",
+				"Guid": "",
+				"GuidsList": null
+			},
+			"ImpactSpeed": 9.0212345,
+			"WorldPosition": {
+				"X": -278.63412,
+				"Y": 2.2171695,
+				"Z": 747.57446
+			},
+			"RelPosition": {
+				"X": 0.9627896,
+				"Y": -0.12310417,
+				"Z": -0.75552046
+			}
+		}
+	]
+}
